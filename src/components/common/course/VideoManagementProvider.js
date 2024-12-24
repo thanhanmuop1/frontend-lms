@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { message, Modal } from 'antd';
 import axios from 'axios';
-import config from '../../../config';
+import config from '../../config';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
 
 const { confirm } = Modal;
