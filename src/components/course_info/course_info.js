@@ -32,7 +32,7 @@ const CourseInfo = () => {
 
   const handleEnroll = async () => {
     try {
-      await axios.post(process.env.REACT_APP_API_URL + '/courseEnroll/enroll', 
+      await axios.post(`${process.env.REACT_APP_API_URL}/courseEnroll/enroll`, 
         { courseId }, 
         { headers: { Authorization: `Bearer ${token}` }}
       );

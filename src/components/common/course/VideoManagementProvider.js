@@ -16,7 +16,7 @@ const VideoManagementProvider = ({
   const [courseInfo, setCourseInfo] = useState(null);
   const [availableQuizzes, setAvailableQuizzes] = useState([]);
 
-  const baseUrl = role === 'admin' ? `${process.env.REACT_APP_API_URL}` : `${process.env.REACT_APP_API_URL}/teacher`;
+  const baseUrl = role === 'admin' ? process.env.REACT_APP_API_URL : `${process.env.REACT_APP_API_URL}/teacher`;
 
   const fetchCourseData = async () => {
     try {
