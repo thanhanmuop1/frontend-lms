@@ -27,12 +27,12 @@ const QuizManagement = () => {
     try {
       setLoading(true);
       const token = localStorage.getItem('token');
-      const response = await axios.get(`${process.env.REACT_APP_API_URL}/teacher/quizzes`, {
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/quizzes`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       setQuizzes(response.data);
     } catch (error) {
-      console.error('Error fetching quizzes:', error.response ? error.response.data : error.message);
+      console.error('Error fetching quizzes:', error);
       message.error('Có lỗi xảy ra khi tải danh sách quiz');
     } finally {
       setLoading(false);
