@@ -32,7 +32,7 @@ const QuizManagement = () => {
       });
       setQuizzes(response.data);
     } catch (error) {
-      console.error('Error fetching quizzes:', error);
+      console.error('Error fetching quizzes:', error.response ? error.response.data : error.message);
       message.error('Có lỗi xảy ra khi tải danh sách quiz');
     } finally {
       setLoading(false);
