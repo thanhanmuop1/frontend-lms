@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Result, Spin, Button } from 'antd';
 import axios from 'axios';
@@ -6,93 +6,44 @@ import axios from 'axios';
 const EmailVerification = () => {
     const { token } = useParams();
     const navigate = useNavigate();
-    const [verifying, setVerifying] = useState(false);
-    const [error, setError] = useState(null);
-    const [success, setSuccess] = useState(false);
-
-    const handleVerification = async () => {
-        if (verifying || success) return;
-
-        try {
-            setVerifying(true);
-            const response = await axios.get(`${process.env.REACT_APP_API_URL}/verify-email/${token}`);
-            setSuccess(true);
-            setVerifying(false);
-
-            setTimeout(() => {
-                navigate('/login');
-            }, 3000);
-        } catch (error) {
-            if (error.response?.status === 400) {
-                setError(error.response.data.message);
-                if (error.response.data.alreadyVerified) {
-                    setTimeout(() => {
-                        navigate('/login');
-                    }, 3000);
-                }
-            } else {
-                setError('Có lỗi xảy ra khi xác thực email');
-            }
-            setVerifying(false);
+    const [status, setStatus] = useState(null);
+    
+    useEffect(() => {
+        const params = new URLSearchParams(window.location.search);
+        const status = params.get('status');
+        
+        if (status === 'success') {
+            setStatus('success');
+            setTimeout(() => navigate('/login'), 3000);
+        } else if (status === 'already-verified') {
+            setStatus('already-verified');
+            setTimeout(() => navigate('/login'), 3000);
+        } else if (status === 'invalid') {
+            setStatus('invalid');
+        } else if (status === 'error') {
+            setStatus('error');
         }
-    };
+    }, [navigate]);
 
-    if (verifying) {
-        return (
-            <div className="verification-container">
-                <Spin size="large" tip="Đang xác thực email..." />
-            </div>
-        );
-    }
-
-    if (error) {
-        return (
-            <div className="verification-container">
-                <Result
-                    status={error.includes('đã được xác thực') ? 'info' : 'error'}
-                    title={error.includes('đã được xác thực') ? 'Thông báo' : 'Xác thực email thất bại'}
-                    subTitle={
-                        <>
-                            <p>{error}</p>
-                            {error.includes('đã được xác thực') && 
-                                <p>Bạn sẽ được chuyển đến trang đăng nhập trong vài giây...</p>
-                            }
-                        </>
-                    }
-                />
-            </div>
-        );
-    }
-
-    if (success) {
-        return (
-            <div className="verification-container">
-                <Result
-                    status="success"
-                    title="Xác thực email thành công!"
-                    subTitle="Bạn sẽ được chuyển đến trang đăng nhập trong vài giây..."
-                />
-            </div>
-        );
+    // Render based on status...
+    if (!status) {
+        return <Spin size="large" tip="Đang xác thực..." />;
     }
 
     return (
-        <div className="verification-container">
-            <Result
-                title="Xác thực email của bạn"
-                subTitle="Nhấn nút bên dưới để xác thực email của bạn"
-                extra={[
-                    <Button 
-                        type="primary" 
-                        key="verify" 
-                        onClick={handleVerification}
-                        loading={verifying}
-                    >
-                        Xác thực email
-                    </Button>
-                ]}
-            />
-        </div>
+        <Result
+            status={status === 'success' || status === 'already-verified' ? 'success' : 'error'}
+            title={
+                status === 'success' ? 'Xác thực email thành công!' :
+                status === 'already-verified' ? 'Email đã được xác thực trước đó' :
+                'Xác thực email thất bại'
+            }
+            subTitle={
+                (status === 'success' || status === 'already-verified') ?
+                'Bạn sẽ được chuyển đến trang đăng nhập trong vài giây...' :
+                'Vui lòng thử lại hoặc liên hệ hỗ trợ'
+            }
+        />
     );
 };
 
