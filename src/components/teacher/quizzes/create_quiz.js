@@ -5,7 +5,7 @@ const CreateQuiz = () => {
   return (
     <CreateQuizBase
       role="teacher"
-      apiEndpoint={process.env.REACT_APP_API_URL + '/teacher/quizzes'}
+      apiEndpoint={`${process.env.REACT_APP_API_URL}/teacher/quizzes`}
     />
   );
 };

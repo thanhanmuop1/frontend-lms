@@ -19,12 +19,12 @@ const CardComponent = () => {
     const fetchCourses = async () => {
       try {
         if (userRole === 'teacher' && token) {
-          const myCoursesResponse = await axios.get(process.env.REACT_APP_API_URL + '/teacher/courses', {
+          const myCoursesResponse = await axios.get(`${process.env.REACT_APP_API_URL}/teacher/courses`, {
             headers: { Authorization: `Bearer ${token}` }
           });
           setMyCourses(myCoursesResponse.data);
         } else {
-          const allCoursesResponse = await axios.get(process.env.REACT_APP_API_URL + '/courses');
+          const allCoursesResponse = await axios.get(`${process.env.REACT_APP_API_URL}/courses`);
           const publicCourses = allCoursesResponse.data.filter(course => 
             course.is_public
           );
@@ -40,7 +40,7 @@ const CardComponent = () => {
 
   const checkEnrollmentStatus = async (courseId) => {
     try {
-      const response = await axios.get(process.env.REACT_APP_API_URL + '/courseEnroll/check/${courseId}', {
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/courseEnroll/check/${courseId}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setEnrollmentStatus(prev => ({
@@ -87,7 +87,7 @@ const CardComponent = () => {
 
   const handleEnroll = async (courseId) => {
     try {
-      await axios.post(process.env.REACT_APP_API_URL + '/courseEnroll/enroll', { courseId }, {
+      await axios.post(`${process.env.REACT_APP_API_URL}/courseEnroll/enroll`, { courseId }, {
         headers: { Authorization: `Bearer ${token}` }
       });
       message.success('Đăng ký khóa học thành công');

@@ -13,7 +13,7 @@ const DocumentManagement = ({ visible, onCancel, courseId, chapterId, videoId })
     try {
       setLoading(true);
       const token = localStorage.getItem('token');
-      const response = await axios.get(process.env.REACT_APP_API_URL + '/teacher/courses/${courseId}/documents', {
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/teacher/courses/${courseId}/documents`, {
         headers: {
           'Authorization': `Bearer ${token}`
         },
@@ -35,7 +35,7 @@ const DocumentManagement = ({ visible, onCancel, courseId, chapterId, videoId })
   const handleDelete = async (documentId) => {
     try {
       const token = localStorage.getItem('token');
-      await axios.delete(process.env.REACT_APP_API_URL + '/documents/${documentId}', {
+      await axios.delete(`${process.env.REACT_APP_API_URL}/documents/${documentId}`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       Modal.confirm({
@@ -45,7 +45,7 @@ const DocumentManagement = ({ visible, onCancel, courseId, chapterId, videoId })
         okType: 'danger',
         cancelText: 'Hủy',
         async onOk() {
-          await axios.delete(process.env.REACT_APP_API_URL + '/documents/${documentId}', {
+          await axios.delete(`${process.env.REACT_APP_API_URL}/documents/${documentId}`, {
             headers: { 'Authorization': `Bearer ${token}` }
           });
           message.success('Xóa tài liệu thành công');
@@ -61,7 +61,7 @@ const DocumentManagement = ({ visible, onCancel, courseId, chapterId, videoId })
   const handleDownload = async (document) => {
     try {
       const token = localStorage.getItem('token');
-      window.open(process.env.REACT_APP_API_URL + '/teacher/documents/${document.id}/download', '_blank');
+      window.open(`${process.env.REACT_APP_API_URL}/teacher/documents/${document.id}/download`, '_blank');
     } catch (error) {
       console.error('Error downloading document:', error);
       message.error('Có lỗi xảy ra khi tải tài liệu');
@@ -70,7 +70,7 @@ const DocumentManagement = ({ visible, onCancel, courseId, chapterId, videoId })
 
   const uploadProps = {
     name: 'file',
-    action: process.env.REACT_APP_API_URL + '/teacher/courses/${courseId}/documents',
+    action: `${process.env.REACT_APP_API_URL}/teacher/courses/${courseId}/documents`,
     headers: {
       Authorization: `Bearer ${localStorage.getItem('token')}`,
     },

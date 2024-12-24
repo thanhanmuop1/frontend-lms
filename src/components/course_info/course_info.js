@@ -20,7 +20,7 @@ const CourseInfo = () => {
 
   const fetchCourseDetails = async () => {
     try {
-      const response = await axios.get(process.env.REACT_APP_API_URL + '/courseEnroll/courses/${courseId}/details');
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/courseEnroll/courses/${courseId}/details`);
       setCourseDetails(response.data);
     } catch (error) {
       console.error('Error fetching course details:', error);

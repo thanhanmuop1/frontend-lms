@@ -22,7 +22,7 @@ const EnrolledCourses = () => {
   const fetchEnrolledCourses = async () => {
     try {
       setLoading(true);
-      const response = await axios.get(process.env.REACT_APP_API_URL + '/courseEnroll/enrolled-courses', {
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/courseEnroll/enrolled-courses`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setEnrolledCourses(response.data);

@@ -8,7 +8,7 @@ const AddQuiz = ({ visible, onCancel, onSuccess }) => {
       onCancel={onCancel}
       onSuccess={onSuccess}
       role="teacher"
-      apiEndpoint={process.env.REACT_APP_API_URL + '/teacher/quizzes'}
+      apiEndpoint={`${process.env.REACT_APP_API_URL}/teacher/quizzes`}
     />
   );
 };

@@ -22,7 +22,7 @@ const SearchResults = () => {
   const fetchSearchResults = async () => {
     try {
       setLoading(true);
-      const response = await axios.get(process.env.REACT_APP_API_URL + '/search/courses?keyword=${keyword}');
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/search/courses?keyword=${keyword}`);
       setSearchResults(response.data.courses);
     } catch (error) {
       console.error('Error fetching search results:', error);
@@ -43,7 +43,7 @@ const SearchResults = () => {
         return;
       }
       
-      await axios.post(process.env.REACT_APP_API_URL + '/courseEnroll/enroll', { courseId }, {
+      await axios.post(`${process.env.REACT_APP_API_URL}/courseEnroll/enroll`, { courseId }, {
         headers: { Authorization: `Bearer ${token}` }
       });
       

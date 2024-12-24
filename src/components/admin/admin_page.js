@@ -28,8 +28,8 @@ const AdminPage = () => {
       };
 
       const [coursesResponse, usersResponse] = await Promise.all([
-        axios.get(process.env.REACT_APP_API_URL + '/courses', { headers }),
-        axios.get(process.env.REACT_APP_API_URL + '/users', { headers })
+        axios.get(`${process.env.REACT_APP_API_URL}/courses`, { headers }),
+        axios.get(`${process.env.REACT_APP_API_URL}/users`, { headers })
       ]);
 
       setCourses(coursesResponse.data);

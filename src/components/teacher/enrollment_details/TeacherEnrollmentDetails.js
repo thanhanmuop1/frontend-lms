@@ -19,7 +19,7 @@ const TeacherEnrollmentDetails = () => {
   const fetchEnrollmentDetails = async () => {
     try {
       const response = await axios.get(
-        process.env.REACT_APP_API_URL + '/courseEnroll/teacher/student-enrollment-details',
+        `${process.env.REACT_APP_API_URL}/courseEnroll/teacher/student-enrollment-details`,
         { headers: { Authorization: `Bearer ${token}` } }
       );
       

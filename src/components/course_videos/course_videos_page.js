@@ -23,7 +23,7 @@ const CourseVideosPage = () => {
 
   const fetchDocuments = useCallback(async (videoId, chapterId) => {
     try {
-      const response = await axios.get(process.env.REACT_APP_API_URL + '/documents', {
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/documents`, {
         params: {
           courseId,
           chapterId,
@@ -40,9 +40,9 @@ const CourseVideosPage = () => {
   const fetchData = useCallback(async () => {
     try {
       const [chaptersResponse, videosResponse, quizzesResponse] = await Promise.all([
-        axios.get(process.env.REACT_APP_API_URL + '/courses/${courseId}/chapters'),
-        axios.get(process.env.REACT_APP_API_URL + '/courses/${courseId}/videos'),
-        axios.get(process.env.REACT_APP_API_URL + '/courses/${courseId}/quizzes')
+        axios.get(`${process.env.REACT_APP_API_URL}/courses/${courseId}/chapters`),
+        axios.get(`${process.env.REACT_APP_API_URL}/courses/${courseId}/videos`),
+        axios.get(`${process.env.REACT_APP_API_URL}/courses/${courseId}/quizzes`)
       ]);
 
       setChapters(chaptersResponse.data);
@@ -65,7 +65,7 @@ const CourseVideosPage = () => {
 
   const fetchCourseInfo = useCallback(async () => {
     try {
-      const response = await axios.get(process.env.REACT_APP_API_URL + '/courses/${courseId}');
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/courses/${courseId}`);
       setCourseInfo(response.data);
     } catch (error) {
       console.error('Error fetching course info:', error);
@@ -96,7 +96,7 @@ const CourseVideosPage = () => {
 
   const handleDownload = async (document) => {
     try {
-      window.open(process.env.REACT_APP_API_URL + '/documents/${document.id}/download', '_blank');
+      window.open(`${process.env.REACT_APP_API_URL}/documents/${document.id}/download`, '_blank');
     } catch (error) {
       message.error('Có lỗi xảy ra khi tải tài liệu');
     }
