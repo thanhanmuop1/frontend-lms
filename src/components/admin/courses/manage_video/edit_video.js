@@ -17,7 +17,7 @@ const EditVideo = ({ visible, onCancel, onSuccess, videoData }) => {
   const handleSubmit = async (values) => {
     try {
       const token = localStorage.getItem('token');
-      await axios.put(process.env.REACT_APP_API_URL + '/videos/${videoData.id}', values, {
+      await axios.put(`${process.env.REACT_APP_API_URL}/videos/${videoData.id}`, values, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
