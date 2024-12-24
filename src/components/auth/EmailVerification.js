@@ -15,7 +15,7 @@ const EmailVerification = () => {
 
         try {
             setVerifying(true);
-            const response = await axios.get(`${process.env.REACT_APP_API_URL}/auth/verify-email/${token}`);
+            const response = await axios.get(`${process.env.REACT_APP_API_URL}/verify-email/${token}`);
             setSuccess(true);
             setVerifying(false);
 
