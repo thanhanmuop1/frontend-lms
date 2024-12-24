@@ -35,7 +35,7 @@ const CreateQuizBase = ({ role, apiEndpoint }) => {
       const fetchCourses = async () => {
         try {
           const token = localStorage.getItem('token');
-          const response = await axios.get(process.env.REACT_APP_API_URL + '/teacher/courses', {
+          const response = await axios.get(`${process.env.REACT_APP_API_URL}/teacher/courses`, {
             headers: { 'Authorization': `Bearer ${token}` }
           });
           setCourses(response.data);
