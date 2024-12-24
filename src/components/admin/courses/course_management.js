@@ -6,7 +6,7 @@ import EditCourse from './manage_course/edit_course';
 import CourseTableColumns from '../../common/course/CourseTableColumns';
 import axios from 'axios';
 import CourseStudents from '../../common/course/CourseStudents';
-import config from '../../../config';
+import config from '../../config';
 
 const { confirm } = Modal;
 

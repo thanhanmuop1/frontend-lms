@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Result, Spin, Button } from 'antd';
 import axios from 'axios';
-import config from '../../config';
+import config from '../config';
 
 const EmailVerification = () => {
     const { token } = useParams();

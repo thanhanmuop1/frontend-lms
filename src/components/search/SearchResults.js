@@ -6,7 +6,7 @@ import Navbar from '../navbar/navbar';
 import Sidebar from '../sidebar/sidebar';
 import CourseCard from '../common/CourseCard';
 import './SearchResults.css';
-import config from '../../config';
+import config from '../config';
 
 const SearchResults = () => {
   const [searchResults, setSearchResults] = useState([]);

@@ -3,7 +3,7 @@ import { Card, Button, Tag } from 'antd';
 import { EditOutlined } from '@ant-design/icons';
 import axios from 'axios';
 import './CourseCard.css';
-import config from '../../../config';
+import config from '../../config';
 
 const { Meta } = Card;
 

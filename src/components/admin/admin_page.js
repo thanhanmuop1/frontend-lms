@@ -8,7 +8,7 @@ import QuizManagement from './quizzes/quiz_management';
 import Navbar from '../navbar/navbar';
 import Sidebar from '../sidebar/sidebar';
 import './admin_page.css';
-import config from '../../config';
+import config from '../config';
 
 const AdminPage = () => {
   const [courses, setCourses] = useState([]);

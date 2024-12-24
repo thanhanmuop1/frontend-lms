@@ -5,7 +5,7 @@ import AddCourse from '../../admin/courses/manage_course/add_course';
 import EditCourse from '../../admin/courses/manage_course/edit_course';
 import CourseTableColumns from '../../common/course/CourseTableColumns';
 import CourseStudents from '../../common/course/CourseStudents';
-import config from '../../../config';
+import config from '../../config';
 
 const { confirm } = Modal;
 

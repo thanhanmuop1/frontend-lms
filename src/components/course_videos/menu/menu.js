@@ -3,7 +3,7 @@ import { Menu as AntMenu } from 'antd';
 import { PlayCircleOutlined, CheckCircleOutlined, ReadOutlined, FileTextOutlined } from '@ant-design/icons';
 import axios from 'axios';
 import './menu.css';
-import config from '../../../config';
+import config from '../../config';
 
 const Menu = ({ videos, chapters, quizzes, onVideoSelect, onQuizSelect }) => {
   const [watchedVideos, setWatchedVideos] = useState([]);

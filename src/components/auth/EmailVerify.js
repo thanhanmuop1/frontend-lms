@@ -3,6 +3,7 @@ import { Result, Spin } from 'antd';
 import { useParams, Link } from 'react-router-dom';
 import axios from 'axios';
 import AuthLayout from '../layout/AuthLayout';
+import config from '../config';
 
 const EmailVerify = () => {
     const [verificationStatus, setVerificationStatus] = useState('verifying'); // verifying, success, error
@@ -12,7 +13,7 @@ const EmailVerify = () => {
     useEffect(() => {
         const verifyEmail = async () => {
             try {
-                const response = await axios.get(`http://localhost:5000/verify-email/${token}`);
+                const response = await axios.get(config.API_URL + '/verify-email/' + token);
                 setVerificationStatus('success');
                 setMessage(response.data.message);
             } catch (error) {

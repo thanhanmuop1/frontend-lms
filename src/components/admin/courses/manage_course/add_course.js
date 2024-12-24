@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Modal, Form, Input, Upload, message, Switch } from 'antd';
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
 import axios from 'axios';
-import config from '../../../../config';
+import config from '../../../config';
 
 const AddCourse = ({ visible, onCancel, onSuccess }) => {
   const [form] = Form.useForm();

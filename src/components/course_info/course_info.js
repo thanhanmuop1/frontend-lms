@@ -6,7 +6,7 @@ import axios from 'axios';
 import Navbar from '../navbar/navbar';
 import Sidebar from '../sidebar/sidebar';
 import './course_info.css';
-import config from '../../config';
+import config from '../config';
 
 const CourseInfo = () => {
   const { courseId } = useParams();

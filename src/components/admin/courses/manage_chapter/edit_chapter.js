@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { Modal, Form, Input, message } from 'antd';
-import config from '../../../../config';
+import config from '../../../config';
 
 const EditChapter = ({ visible, onCancel, onSuccess, chapterData }) => {
   const [form] = Form.useForm();

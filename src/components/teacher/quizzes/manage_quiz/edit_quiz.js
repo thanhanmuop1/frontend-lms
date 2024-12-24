@@ -1,6 +1,6 @@
 import React from 'react';
 import EditQuizBase from '../../../common/quiz/EditQuizBase';
-import config from '../../../../config';
+import config from '../../config';
 
 const EditQuiz = ({ visible, onCancel, onSuccess, quizData }) => {
   return (

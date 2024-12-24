@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Modal, Form, Input, message } from 'antd';
 import axios from 'axios';
-import config from '../../../../config';
+import config from '../../../config';
 
 const EditVideo = ({ visible, onCancel, onSuccess, videoData }) => {
   const [form] = Form.useForm();

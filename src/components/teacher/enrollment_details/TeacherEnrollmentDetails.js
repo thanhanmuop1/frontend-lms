@@ -5,7 +5,7 @@ import axios from 'axios';
 import Navbar from '../../navbar/navbar';
 import Sidebar from '../../sidebar/sidebar';
 import './TeacherEnrollmentDetails.css';
-import config from '../../../config';
+import config from '../../config';
 
 const TeacherEnrollmentDetails = () => {
   const [enrollmentData, setEnrollmentData] = useState([]);

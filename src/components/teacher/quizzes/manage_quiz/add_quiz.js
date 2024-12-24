@@ -1,6 +1,6 @@
 import React from 'react';
 import AddQuizBase from '../../../common/quiz/AddQuizBase';
-import config from '../../../../config';
+import config from '../../config';
 
 const AddQuiz = ({ visible, onCancel, onSuccess }) => {
   return (

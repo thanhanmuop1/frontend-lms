@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Modal, Table, message, Button, Popconfirm } from 'antd';
 import { DeleteOutlined } from '@ant-design/icons';
 import axios from 'axios';
-import config from '../../../config';
+import config from '../../config';
 
 const CourseStudents = ({ visible, onCancel, courseId, onStudentRemoved }) => {
   const [loading, setLoading] = useState(false);

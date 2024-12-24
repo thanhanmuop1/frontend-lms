@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Modal, Form, Input, Upload, message, Switch } from 'antd';
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
 import axios from 'axios';
-import config from '../../../../config';
+import config from '../../../config';
 
 const EditCourse = ({ visible, onCancel, onSuccess, courseData }) => {
   const [form] = Form.useForm();

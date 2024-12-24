@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Card, Row, Col, Statistic, Table } from 'antd';
 import { ReadOutlined, FileOutlined, UserOutlined } from '@ant-design/icons';
 import axios from 'axios';
-import config from '../../../config';
+import config from '../../config';
 
 
 const TeacherDashboard = ({ courses = [] }) => {

@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { message, Modal } from 'antd';
 import axios from 'axios';
 import DocumentManagementBase from '../../../common/course/DocumentManagementBase';
-import config from '../../../../config';
+import config from '../../../config';
 
 const DocumentManagement = ({ visible, onCancel, courseId, chapterId, videoId }) => {
   const [documents, setDocuments] = useState([]);

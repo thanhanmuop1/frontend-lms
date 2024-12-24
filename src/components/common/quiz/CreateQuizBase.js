@@ -5,7 +5,7 @@ import axios from 'axios';
 import Navbar from '../../navbar/navbar';
 import Sidebar from '../../sidebar/sidebar';
 import '../../teacher/teacher_page.css';
-import config from '../../../config';
+import config from '../../config';
 
 const CreateQuizBase = ({ role, apiEndpoint }) => {
   const [form] = Form.useForm();

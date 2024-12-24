@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { LoadingOutlined, CheckCircleOutlined, CloseCircleOutlined, QuestionCircleOutlined } from '@ant-design/icons';
 import QuizReview from './QuizReview';
 import './quiz.css';
-import config from '../../../config';
+import config from '../../config';
 
 const { Title, Text } = Typography;
 

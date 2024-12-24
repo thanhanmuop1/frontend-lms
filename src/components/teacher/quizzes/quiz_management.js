@@ -3,7 +3,7 @@ import { message } from 'antd';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import QuizManagementBase from '../../common/quiz/QuizManagementBase';
-import config from '../../../config';
+import config from '../../config';
 
 const QuizManagement = () => {
   const navigate = useNavigate();

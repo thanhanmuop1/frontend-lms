@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Quiz from '../quiz/Quiz';
 import './videos.css';
-import config from '../../../config';
+import config from '../../config';
 
 const Videos = ({ video, quizzes }) => {
   const [player, setPlayer] = useState(null);

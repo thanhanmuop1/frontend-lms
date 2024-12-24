@@ -4,7 +4,7 @@ import axios from 'axios';
 import { useNavigate, Link } from 'react-router-dom';
 import './Auth.css';
 import AuthLayout from '../layout/AuthLayout';
-import config from '../../config';
+import config from '../config';
 
 const Register = () => {
     const navigate = useNavigate();

@@ -4,7 +4,7 @@ import { EditOutlined, PlusOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './card.css';
-import config from '../../config';
+import config from '../config';
 
 const { Meta } = Card;
 

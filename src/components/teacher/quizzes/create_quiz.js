@@ -1,6 +1,6 @@
 import React from 'react';
 import CreateQuizBase from '../../common/quiz/CreateQuizBase';
-import config from '../../../config';
+import config from '../../config';
 
 const CreateQuiz = () => {
   return (

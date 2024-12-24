@@ -8,7 +8,7 @@ import CourseVideoNavbar from './components/CourseVideoNavbar';
 import './course_videos_page.css';
 import { message, List } from 'antd';
 import { LoadingOutlined } from '@ant-design/icons';
-import config from '../../config';
+import config from '../config';
 
 const CourseVideosPage = () => {
   const { courseId } = useParams();
