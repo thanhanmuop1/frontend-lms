@@ -27,7 +27,7 @@ const QuizManagement = () => {
     try {
       setLoading(true);
       const token = localStorage.getItem('token');
-      const response = await axios.get(`${process.env.REACT_APP_API_URL}/quizzes`, {
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/teacher/quizzes`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       setQuizzes(response.data);
