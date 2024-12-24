@@ -1,6 +1,7 @@
 import React from 'react';
 import { Modal, Form, Input, message } from 'antd';
 import config from '../../../config';
+import axios from 'axios';
 
 const AddChapter = ({ visible, onCancel, onSuccess, courseId }) => {
   const [form] = Form.useForm();
