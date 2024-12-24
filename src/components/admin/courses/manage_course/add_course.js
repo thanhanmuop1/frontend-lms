@@ -51,7 +51,7 @@ const AddCourse = ({ visible, onCancel, onSuccess }) => {
     try {
       setLoading(true);
       const response = await axios.post(
-        'http://localhost:5000/courses/upload-thumbnail',
+        process.env.REACT_APP_API_URL + '/courses/upload-thumbnail',
         formData,
         {
           headers: {

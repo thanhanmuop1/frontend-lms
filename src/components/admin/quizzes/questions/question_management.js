@@ -31,7 +31,7 @@ const QuestionManagement = () => {
       setLoading(true);
       const token = localStorage.getItem('token');
       const response = await axios.get(
-        process.env.REACT_APP_API_URL + '/quizzes/${quizId}',
+        `${process.env.REACT_APP_API_URL}/quizzes/${quizId}`,
         {
           headers: { 'Authorization': `Bearer ${token}` }
         }
@@ -71,7 +71,7 @@ const QuestionManagement = () => {
     try {
       const token = localStorage.getItem('token');
       await axios.delete(
-        process.env.REACT_APP_API_URL + '/questions/${questionId}',
+        `${process.env.REACT_APP_API_URL}/questions/${questionId}`,
         {
           headers: { 'Authorization': `Bearer ${token}` }
         }
@@ -103,7 +103,7 @@ const QuestionManagement = () => {
       }));
       
       await axios.put(
-        process.env.REACT_APP_API_URL + '/quizzes/${quizId}/questions',
+        `${process.env.REACT_APP_API_URL}/quizzes/${quizId}/questions`,
         { questions: formattedQuestions },
         {
           headers: { 'Authorization': `Bearer ${token}` }
