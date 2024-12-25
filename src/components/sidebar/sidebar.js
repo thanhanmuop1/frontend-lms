@@ -105,6 +105,12 @@ const Sidebar = () => {
           </Link>
         ))}
       </nav>
+      <div className="logo">
+  
+          <div className="logoandslogan">
+          <img src="/image5.png" alt="App logo" />
+           </div>
+      </div>
     </div>
   );
 };
