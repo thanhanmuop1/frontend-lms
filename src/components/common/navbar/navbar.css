@@ -85,13 +85,20 @@
   width: 32px;
   height: 32px;
   border-radius: 50%;
-  background: #1890ff;
-  color: white;
+  background: #e5e7eb;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: 600;
   font-size: 14px;
+  color: #6b7280;
+  margin-right: 8px;
+  overflow: hidden;
+}
+
+.avatar-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .user-name {

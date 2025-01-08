@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate, useSearchParams } from 'react-router-dom';
 import axios from 'axios';
 import Videos from './videos/videos';
 import Menu from './menu/menu';
@@ -11,6 +11,9 @@ import { LoadingOutlined } from '@ant-design/icons';
 
 const CourseVideosPage = () => {
   const { courseId } = useParams();
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const videoId = searchParams.get('videoId');
   const [chapters, setChapters] = useState([]);
   const [videos, setVideos] = useState([]);
   const [quizzes, setQuizzes] = useState([]);
@@ -49,11 +52,25 @@ const CourseVideosPage = () => {
       setVideos(videosResponse.data);
       setQuizzes(quizzesResponse.data);
       
-      if (videosResponse.data.length > 0) {
+      if (videoId && videosResponse.data.length > 0) {
+        const videoToSelect = videosResponse.data.find(v => v.id === parseInt(videoId));
+        if (videoToSelect) {
+          setSelectedVideo(videoToSelect);
+          fetchDocuments(videoToSelect.id, videoToSelect.chapter_id);
+          setSelectedQuiz(null);
+        } else {
+          const firstVideo = videosResponse.data[0];
+          setSelectedVideo(firstVideo);
+          fetchDocuments(firstVideo.id, firstVideo.chapter_id);
+          setSelectedQuiz(null);
+          navigate(`/course/${courseId}?videoId=${firstVideo.id}`, { replace: true });
+        }
+      } else if (videosResponse.data.length > 0) {
         const firstVideo = videosResponse.data[0];
         setSelectedVideo(firstVideo);
         fetchDocuments(firstVideo.id, firstVideo.chapter_id);
         setSelectedQuiz(null);
+        navigate(`/course/${courseId}?videoId=${firstVideo.id}`, { replace: true });
       }
       setLoading(false);
     } catch (err) {
@@ -61,7 +78,7 @@ const CourseVideosPage = () => {
       setError('Có lỗi xảy ra khi tải dữ liệu');
       setLoading(false);
     }
-  }, [courseId, fetchDocuments]);
+  }, [courseId, fetchDocuments, navigate, videoId]);
 
   const fetchCourseInfo = useCallback(async () => {
     try {
@@ -82,6 +99,7 @@ const CourseVideosPage = () => {
     setSelectedVideo(video);
     setSelectedQuiz(null);
     fetchDocuments(video.id, video.chapter_id);
+    navigate(`/course/${courseId}?videoId=${video.id}`, { replace: true });
   };
 
   const handleQuizSelect = (quiz) => {

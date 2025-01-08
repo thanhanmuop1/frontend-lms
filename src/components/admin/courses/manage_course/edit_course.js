@@ -138,7 +138,7 @@ const EditCourse = ({ visible, onCancel, onSuccess, courseData }) => {
           >
             {imageUrl ? (
               <img 
-                src={imageUrl} 
+                src={`${process.env.REACT_APP_API_URL}${imageUrl}`} 
                 alt="thumbnail" 
                 style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
               />

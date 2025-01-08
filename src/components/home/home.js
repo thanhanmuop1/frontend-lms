@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { message } from 'antd';
-import CardComponent from '../card/card';
-import Sidebar from '../sidebar/sidebar';
-import Navbar from '../navbar/navbar';
+import CardComponent from './card';
+import Sidebar from '../common/sidebar/sidebar';
+import Navbar from '../common/navbar/navbar';
 import '../layout/layout.css';
 
 const Home = () => {

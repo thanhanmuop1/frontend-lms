@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Card, Button, Tag } from 'antd';
-import { EditOutlined } from '@ant-design/icons';
+import { Card } from 'antd';
 import axios from 'axios';
 import './CourseCard.css';
 
@@ -8,25 +7,25 @@ const { Meta } = Card;
 
 const CourseCard = ({
   course,
-  userRole,
   onEnroll,
   onCardClick,
-  onEditClick,
-  className = ''
+  isEnrolled: propIsEnrolled,
+  className = '',
+  showEnrollmentStatus = true
 }) => {
-  const [isEnrolled, setIsEnrolled] = useState(false);
+  const [isEnrolled, setIsEnrolled] = useState(propIsEnrolled);
   const token = localStorage.getItem('token');
 
   useEffect(() => {
-    if (token) {
+    if (token && showEnrollmentStatus && !propIsEnrolled) {
       checkEnrollmentStatus();
     }
-  }, [course.id]);
+  }, [course?.id, token, showEnrollmentStatus]);
 
   const checkEnrollmentStatus = async () => {
     try {
       const response = await axios.get(
-        process.env.REACT_APP_API_URL + '/courseEnroll/check/${course.id}',
+        `${process.env.REACT_APP_API_URL}/courseEnroll/check/${course.id}`,
         { headers: { Authorization: `Bearer ${token}` } }
       );
       setIsEnrolled(response.data.isEnrolled);
@@ -35,18 +34,30 @@ const CourseCard = ({
     }
   };
 
-  const handleEnrollClick = async (e) => {
-    e.stopPropagation();
-    if (onEnroll) {
-      await onEnroll(course.id);
-      // Sau khi đăng ký thành công, cập nhật lại trạng thái
-      checkEnrollmentStatus();
-    }
-  };
+  // if (isNewCourseCard) {
+  //   return (
+  //     <Card
+  //       hoverable
+  //       onClick={onCardClick}
+  //       className={`course-card new-course-card ${className}`}
+  //       cover={
+  //         <div className="course-image-container new-course-container">
+  //           <PlusOutlined className="new-course-icon" />
+  //           <div className="new-course-text">Tạo khóa học mới</div>
+  //         </div>
+  //       }
+  //     >
+  //       <Meta 
+  //         title="Tạo khóa học mới"
+  //         description="Nhấn để bắt đầu tạo khóa học của bạn" 
+  //       />
+  //     </Card>
+  //   );
+  // }
 
-  const handleEditClick = (e) => {
+  const handleEnrollClick = (e) => {
     e.stopPropagation();
-    onEditClick?.(course.id);
+    onEnroll?.(course.id);
   };
 
   return (
@@ -58,7 +69,7 @@ const CourseCard = ({
         <div className="course-image-container">
           <img
             alt={course.title}
-            src={course.thumbnail}
+            src={`${process.env.REACT_APP_API_URL}${course.thumbnail}`}
             className="course-image"
           />
         </div>
@@ -75,29 +86,6 @@ const CourseCard = ({
           </div>
         }
       />
-      
-      {userRole === 'teacher' ? (
-        <Button 
-          className="enroll-button"
-          icon={<EditOutlined />}
-          onClick={handleEditClick}
-        >
-          Chỉnh sửa
-        </Button>
-      ) : (
-        !isEnrolled ? (
-          <Button 
-            className="enroll-button"
-            onClick={handleEnrollClick}
-          >
-            Đăng ký
-          </Button>
-        ) : (
-          <Tag color="green" className="enrolled-tag">
-            Đã đăng ký
-          </Tag>
-        )
-      )}
     </Card>
   );
 };

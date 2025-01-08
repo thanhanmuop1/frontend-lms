@@ -1,17 +1,20 @@
 import React from 'react';
 import { Modal, Form, Input, message } from 'antd';
-import apiService from '../../../../services/apiService';
+import axios from 'axios';
 
-const AddVideo = ({ visible, onCancel, onSuccess, courseId, chapterId }) => {
+const AddVideoModal = ({ 
+  visible, 
+  onCancel, 
+  onSuccess, 
+  courseId, 
+  chapterId,
+  role = 'teacher' // 'admin' or 'teacher'
+}) => {
   const [form] = Form.useForm();
 
   const handleSubmit = async (values) => {
     try {
-      console.log('Submitting video data:', {
-        ...values,
-        chapter_id: chapterId,
-        course_id: courseId
-      });
+      const token = localStorage.getItem('token');
 
       const videoData = {
         title: values.title,
@@ -25,10 +28,14 @@ const AddVideo = ({ visible, onCancel, onSuccess, courseId, chapterId }) => {
         return;
       }
 
-      await apiService.post('videos', videoData, { 
-        courseId,
-        chapterId 
-      });
+      await axios.post( `${process.env.REACT_APP_API_URL}/chapters/${chapterId}/videos`, videoData,
+        {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+          }
+        }
+      );
       
       message.success('Thêm video thành công');
       form.resetFields();
@@ -74,4 +81,4 @@ const AddVideo = ({ visible, onCancel, onSuccess, courseId, chapterId }) => {
   );
 };
 
-export default AddVideo; 
+export default AddVideoModal; 

@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Table, Card, Statistic, Row, Col, Progress, Input, Button, Space, Tag } from 'antd';
 import { SearchOutlined, UserOutlined, BookOutlined, FieldTimeOutlined } from '@ant-design/icons';
 import axios from 'axios';
-import Navbar from '../../navbar/navbar';
-import Sidebar from '../../sidebar/sidebar';
+import Navbar from '../../common/navbar/navbar';
+import Sidebar from '../../common/sidebar/sidebar';
 import './TeacherEnrollmentDetails.css';
 
 const TeacherEnrollmentDetails = () => {

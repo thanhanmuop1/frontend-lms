@@ -2,7 +2,13 @@ import React, { useEffect } from 'react';
 import { Modal, Form, Input, message } from 'antd';
 import axios from 'axios';
 
-const EditVideo = ({ visible, onCancel, onSuccess, videoData }) => {
+const EditVideoModal = ({ 
+  visible, 
+  onCancel, 
+  onSuccess, 
+  videoData,
+  role = 'teacher' // 'admin' or 'teacher'
+}) => {
   const [form] = Form.useForm();
 
   useEffect(() => {
@@ -17,15 +23,18 @@ const EditVideo = ({ visible, onCancel, onSuccess, videoData }) => {
   const handleSubmit = async (values) => {
     try {
       const token = localStorage.getItem('token');
+
       await axios.put(`${process.env.REACT_APP_API_URL}/videos/${videoData.id}`, values, {
         headers: {
-          'Authorization': `Bearer ${token}`
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
         }
       });
       
       message.success('Cập nhật video thành công');
       onSuccess();
     } catch (error) {
+      console.error('Error updating video:', error);
       message.error(error.response?.data?.message || 'Có lỗi xảy ra khi cập nhật video');
     }
   };
@@ -65,4 +74,4 @@ const EditVideo = ({ visible, onCancel, onSuccess, videoData }) => {
   );
 };
 
-export default EditVideo; 
+export default EditVideoModal; 

@@ -46,7 +46,7 @@ const CourseManagement = () => {
       onOk: async () => {
         try {
           const token = localStorage.getItem('token');
-          await axios.delete(`${process.env.REACT_APP_API_URL}/teacher/courses/${courseId}`, {
+          await axios.delete(`${process.env.REACT_APP_API_URL}/courses/${courseId}`, {
             headers: { Authorization: `Bearer ${token}` }
           });
           message.success('Xóa khóa học thành công');

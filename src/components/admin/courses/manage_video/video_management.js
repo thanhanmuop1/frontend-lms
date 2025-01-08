@@ -1,15 +1,14 @@
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
-import VideoManagementBase from '../../common/course/VideoManagementBase';
-import VideoManagementProvider from '../../common/course/VideoManagementProvider';
-import AddChapter from '../../admin/courses/manage_chapter/add_chapter';
-import EditChapter from '../../admin/courses/manage_chapter/edit_chapter';
-import EditVideoModal from '../../common/video/EditVideoModal';
-import DocumentManagement from './manage_document/document_management';
-import Navbar from '../../common/navbar/navbar';
-import Sidebar from '../../common/sidebar/sidebar';
-import '../teacher_page.css';
-import AddVideoModal from '../../common/video/AddVideoModal';
+import VideoManagementBase from '../../../common/course/VideoManagementBase';
+import VideoManagementProvider from '../../../common/course/VideoManagementProvider';
+import DocumentManagement from '../../../common/document/DocumentManagement';
+import AddChapter from '../manage_chapter/add_chapter';
+import EditChapter from '../manage_chapter/edit_chapter';
+import EditVideoModal from '../../../common/video/EditVideoModal';
+import AddVideoModal from '../../../common/video/AddVideoModal';
+import Navbar from '../../../common/navbar/navbar';
+import Sidebar from '../../../common/sidebar/sidebar';
 
 const VideoManagement = () => {
   const { courseId } = useParams();
@@ -30,9 +29,9 @@ const VideoManagement = () => {
       <Sidebar />
       <div className="main-content">
         <Navbar />
-        <main className="content teacher-container">
+        <main className="content">
           <div className="course-management">
-            <VideoManagementProvider courseId={courseId} role="teacher">
+            <VideoManagementProvider courseId={courseId} role="admin">
               {({
                 videos,
                 chapters,
@@ -87,7 +86,6 @@ const VideoManagement = () => {
                     onQuizUnassign={(quizId) => handleUnassignQuiz(selectedVideoForQuiz.id, quizId)}
                   />
 
-                  {/* Các modal components */}
                   <AddChapter
                     visible={isAddChapterVisible}
                     onCancel={() => setIsAddChapterVisible(false)}
@@ -125,7 +123,7 @@ const VideoManagement = () => {
                     }}
                     courseId={courseId}
                     chapterId={selectedChapterForVideo?.id}
-                    role="teacher"
+                    role="admin"
                   />
 
                   <EditVideoModal
@@ -140,7 +138,7 @@ const VideoManagement = () => {
                       fetchCourseData();
                     }}
                     videoData={selectedVideo}
-                    role="teacher"
+                    role="admin"
                   />
 
                   <DocumentManagement
@@ -153,6 +151,7 @@ const VideoManagement = () => {
                     chapterId={selectedVideoForDocs?.chapter_id}
                     videoId={selectedVideoForDocs?.id}
                   />
+
                 </>
               )}
             </VideoManagementProvider>

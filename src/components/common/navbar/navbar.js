@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { message } from 'antd';
+import axios from 'axios';
 import './navbar.css';
 import { SearchOutlined, UserOutlined, BookOutlined, LogoutOutlined, CaretDownOutlined } from '@ant-design/icons';
 
@@ -11,23 +12,33 @@ const Navbar = () => {
   const navigate = useNavigate();
   const [showMenu, setShowMenu] = useState(false);
   const menuRef = useRef(null);
-  const isLoggedIn = localStorage.getItem('token');
-  const userRole = localStorage.getItem('role');
-  const userString = localStorage.getItem('user');
-  let userFullName = '';
+  const token = localStorage.getItem('token');
+  const [userData, setUserData] = useState(null);
   const [searchValue, setSearchValue] = useState('');
   
-  try {
-    const userObj = JSON.parse(userString);
-    userFullName = userObj.full_name || userObj.username;
-  } catch (error) {
-    console.error('Error parsing user data:', error);
-  }
+  useEffect(() => {
+    if (token) {
+      fetchUserData();
+    }
+  }, [token]);
+
+  const fetchUserData = async () => {
+    try {
+      const response = await axios.get(
+        `${process.env.REACT_APP_API_URL}/users/profile`,
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      setUserData(response.data);
+    } catch (error) {
+      console.error('Error fetching user data:', error);
+    }
+  };
 
   const handleLogout = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('role');
     localStorage.removeItem('user');
+    setUserData(null);
     navigate('/login');
   };
 
@@ -66,13 +77,21 @@ const Navbar = () => {
       </div>
 
       <div className="navbar-right">
-        {isLoggedIn ? (
+        {token ? (
           <div className="user-menu" ref={menuRef}>
             <div className="user-info" onClick={() => setShowMenu(!showMenu)}>
               <div className="user-avatar">
-                {userRole?.[0]?.toUpperCase() || 'U'}
+                {userData?.avatar ? (
+                  <img 
+                    src={`${process.env.REACT_APP_API_URL}${userData.avatar}`} 
+                    alt="Avatar" 
+                    className="avatar-image"
+                  />
+                ) : (
+                  userData?.role?.[0]?.toUpperCase() || 'U'
+                )}
               </div>
-              <span className="user-name">{userFullName}</span>
+              <span className="user-name">{userData?.full_name || userData?.username}</span>
               <CaretDownOutlined className="dropdown-icon" />
             </div>
             

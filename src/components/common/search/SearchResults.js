@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { Row, Col, Empty, Spin } from 'antd';
+import { Empty, Spin } from 'antd';
 import axios from 'axios';
 import Navbar from '../navbar/navbar';
 import Sidebar from '../sidebar/sidebar';
-import CourseCard from '../common/CourseCard';
-import './SearchResults.css';
+import CourseCard from '../card/CourseCard';
+import '../../../styles/CourseLayout.css';
 
 const SearchResults = () => {
   const [searchResults, setSearchResults] = useState([]);
@@ -59,25 +59,24 @@ const SearchResults = () => {
       <div className="main-content">
         <Navbar />
         <div className="search-results-container">
-          <h2>Kết quả tìm kiếm cho "{keyword}"</h2>
+          <h2 className="section-title">Kết quả tìm kiếm cho "{keyword}"</h2>
           
           {loading ? (
             <div className="loading-container">
               <Spin size="large" />
             </div>
           ) : searchResults.length > 0 ? (
-            <Row gutter={[24, 24]}>
+            <div className="courses-grid">
               {searchResults.map(course => (
-                <Col key={course.id} xs={24} sm={12} md={8} lg={6}>
-                  <CourseCard
-                    course={course}
-                    userRole={localStorage.getItem('role')}
-                    onEnroll={handleEnroll}
-                    onCardClick={handleCourseClick}
-                  />
-                </Col>
+                <CourseCard
+                  key={course.id}
+                  course={course}
+                  userRole={localStorage.getItem('role')}
+                  onEnroll={handleEnroll}
+                  onCardClick={handleCourseClick}
+                />
               ))}
-            </Row>
+            </div>
           ) : (
             <Empty
               description="Không tìm thấy khóa học nào"

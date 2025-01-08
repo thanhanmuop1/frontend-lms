@@ -4,8 +4,8 @@ import { PlusOutlined } from '@ant-design/icons';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import QuestionItem from './QuestionItem';
-import Navbar from '../../../navbar/navbar';
-import Sidebar from '../../../sidebar/sidebar';
+import Navbar from '../../../common/navbar/navbar';
+import Sidebar from '../../../common/sidebar/sidebar';
 import '../../admin_page.css';
 
 const { Title } = Typography;
@@ -64,23 +64,6 @@ const QuestionManagement = () => {
       navigate('/admin/quiz');
     } finally {
       setLoading(false);
-    }
-  };
-
-  const handleDeleteQuestion = async (questionId) => {
-    try {
-      const token = localStorage.getItem('token');
-      await axios.delete(
-        `${process.env.REACT_APP_API_URL}/questions/${questionId}`,
-        {
-          headers: { 'Authorization': `Bearer ${token}` }
-        }
-      );
-      message.success('Xóa câu hỏi thành công');
-      fetchQuizData();
-    } catch (error) {
-      console.error('Error deleting question:', error);
-      message.error('Có lỗi xảy ra khi xóa câu hỏi');
     }
   };
 
@@ -173,7 +156,6 @@ const QuestionManagement = () => {
                           remove={remove}
                           restField={field}
                           index={index}
-                          handleDeleteQuestion={handleDeleteQuestion}
                         />
                       ))}
                       <Button

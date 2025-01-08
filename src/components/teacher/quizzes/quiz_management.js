@@ -47,7 +47,7 @@ const QuizManagement = () => {
   const handleDelete = async (quizId) => {
     try {
       const token = localStorage.getItem('token');
-      await axios.delete(`${process.env.REACT_APP_API_URL}/teacher/quizzes/${quizId}`, {
+      await axios.delete(`${process.env.REACT_APP_API_URL}/quizzes/${quizId}`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       message.success('Xóa quiz thành công');

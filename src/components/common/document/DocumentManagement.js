@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { message, Modal } from 'antd';
+import React, { useState, useCallback, useEffect } from 'react';
 import axios from 'axios';
-import DocumentManagementBase from '../../../common/document/DocumentManagementBase';
+import { message, Modal } from 'antd';
+import DocumentManagementBase from './DocumentManagementBase';
 
 const DocumentManagement = ({ visible, onCancel, courseId, chapterId, videoId }) => {
   const [documents, setDocuments] = useState([]);
@@ -13,7 +13,7 @@ const DocumentManagement = ({ visible, onCancel, courseId, chapterId, videoId })
     try {
       setLoading(true);
       const token = localStorage.getItem('token');
-      const response = await axios.get(`${process.env.REACT_APP_API_URL}/teacher/courses/${courseId}/documents`, {
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/documents`, {
         headers: {
           'Authorization': `Bearer ${token}`
         },
@@ -41,7 +41,10 @@ const DocumentManagement = ({ visible, onCancel, courseId, chapterId, videoId })
         okType: 'danger',
         cancelText: 'Hủy',
         async onOk() {
-          await axios.delete(`${process.env.REACT_APP_API_URL}/documents/${documentId}`);
+          const token = localStorage.getItem('token');
+          await axios.delete(`${process.env.REACT_APP_API_URL}/documents/${documentId}`, {
+            headers: { 'Authorization': `Bearer ${token}` }
+          });
           message.success('Xóa tài liệu thành công');
           fetchDocuments();
         }
@@ -54,7 +57,6 @@ const DocumentManagement = ({ visible, onCancel, courseId, chapterId, videoId })
 
   const handleDownload = async (document) => {
     try {
-      const token = localStorage.getItem('token');
       window.open(`${process.env.REACT_APP_API_URL}/documents/${document.id}/download`, '_blank');
     } catch (error) {
       console.error('Error downloading document:', error);
@@ -97,8 +99,7 @@ const DocumentManagement = ({ visible, onCancel, courseId, chapterId, videoId })
         message.success(`${info.file.name} tải lên thành công`);
         fetchDocuments();
       } else if (info.file.status === 'error') {
-        message.error(`${info.file.name} tải lên thất bại.`);
-        console.error('Upload error:', info.file.error);
+        message.error(`${info.file.name} tải lên thất bại`);
       }
     },
   };

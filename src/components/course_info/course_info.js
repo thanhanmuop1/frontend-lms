@@ -3,8 +3,8 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { Card, Button, message, Descriptions, Statistic, Row, Col, Rate } from 'antd';
 import { PlayCircleOutlined, FileOutlined, TeamOutlined, StarOutlined, ClockCircleOutlined } from '@ant-design/icons';
 import axios from 'axios';
-import Navbar from '../navbar/navbar';
-import Sidebar from '../sidebar/sidebar';
+import Navbar from '../common/navbar/navbar';
+import Sidebar from '../common/sidebar/sidebar';
 import './course_info.css';
 
 const CourseInfo = () => {
@@ -12,11 +12,27 @@ const CourseInfo = () => {
   const navigate = useNavigate();
   const [courseDetails, setCourseDetails] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [isEnrolled, setIsEnrolled] = useState(false);
   const token = localStorage.getItem('token');
 
   useEffect(() => {
     fetchCourseDetails();
+    if (token) {
+      checkEnrollmentStatus();
+    }
   }, [courseId]);
+
+  const checkEnrollmentStatus = async () => {
+    try {
+      const response = await axios.get(
+        `${process.env.REACT_APP_API_URL}/courseEnroll/check/${courseId}`,
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      setIsEnrolled(response.data.isEnrolled);
+    } catch (error) {
+      console.error('Error checking enrollment status:', error);
+    }
+  };
 
   const fetchCourseDetails = async () => {
     try {
@@ -37,10 +53,15 @@ const CourseInfo = () => {
         { headers: { Authorization: `Bearer ${token}` }}
       );
       message.success('Đăng ký khóa học thành công');
+      setIsEnrolled(true);
       navigate(`/course/${courseId}`);
     } catch (error) {
       message.error('Lỗi khi đăng ký khóa học');
     }
+  };
+
+  const handleStartLearning = () => {
+    navigate(`/course/${courseId}`);
   };
 
   if (loading) return <div>Loading...</div>;
@@ -82,14 +103,24 @@ const CourseInfo = () => {
             <div className="course-preview-right">
               <Card className="course-card">
                 <img 
-                  src={courseDetails?.thumbnail} 
+                  src={`${process.env.REACT_APP_API_URL}${courseDetails?.thumbnail}`} 
                   alt={courseDetails?.title}
                   className="course-thumbnail" 
                 />
                 <div className="card-content">
-                  <Button type="primary" block onClick={handleEnroll}>
-                    Đăng ký học ngay
-                  </Button>
+                  {isEnrolled ? (
+                    <Button 
+                      type="primary" 
+                      block 
+                      onClick={handleStartLearning}
+                    >
+                      Vào học
+                    </Button>
+                  ) : (
+                    <Button type="primary" block onClick={handleEnroll}>
+                      Đăng ký học ngay
+                    </Button>
+                  )}
                 </div>
               </Card>
             </div>
