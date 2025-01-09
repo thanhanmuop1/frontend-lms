@@ -78,7 +78,7 @@ const CourseStudents = ({ visible, onCancel, courseId, onStudentRemoved }) => {
       setLoading(true);
       const token = localStorage.getItem('token');
       const response = await axios.get(
-        `http://localhost:5000/courses/${courseId}/students`,
+        `${process.env.REACT_APP_API_URL}/courses/${courseId}/students`,
         {
           headers: { Authorization: `Bearer ${token}` }
         }
